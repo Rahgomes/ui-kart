@@ -34,7 +34,7 @@
 }
 
 .card_info_sm p span {
-	font-size: 2rem;
+	font-size: 3rem;
 	text-transform: uppercase;
 	font-weight: bold;
 }
@@ -80,7 +80,7 @@
 
 .card_info_current p span {
 	color: #fff;
-	font-size: 4rem;
+	font-size: 5rem;
 	text-transform: uppercase;
 	font-weight: bold;
 }
@@ -94,7 +94,7 @@
 
 .card_info_lap p span {
 	color: #111270;
-	font-size: 3rem;
+	font-size: 3.5rem;
 	text-transform: uppercase;
 	font-weight: bold;
 }
@@ -115,7 +115,7 @@
 }
 
 .card_info_fastest p span {
-	font-size: 4rem;
+	font-size: 5rem;
 	text-transform: uppercase;
 	font-weight: bold;
 }
@@ -131,6 +131,20 @@
 	background: linear-gradient(120deg, #000000 50%, #ffffff 50%);
 }
 
+.bg_modal_options {
+	background: linear-gradient( rgb(255 255 255 / 85%) 10%, rgb(255 255 255 / 100%)100%),url('../../assets/image/flag-race-bg.jpg');
+	background-size: cover;
+}
+
+.btn_custom_black {
+	background: linear-gradient(45deg, black 50%, rgba(0,0,0,.7) 50%, black) !important;
+	border: none !important;
+	transition: 250ms ease;
+}
+
+.btn_custom_red {
+	background: linear-gradient(45deg, #EF4444 50%, rgb(255 41 41 / 70%) 50%, #EF4444) !important;
+}
 
 /*
 .footer {
