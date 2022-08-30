@@ -132,41 +132,40 @@ const LapTime = () => {
 			</div>
 
 			<div className={`${styles.bg}`}>
-				<div className="container-fluid">
+				<div className={`container-fluid ${styles.portrait_container_alignment}`}>
 					<div className="row">
-						<div className="col-12 col-md-3 pt-5">
-							<div className={`${styles.card_info_lg} mb-4`}>
+						<div className={`col-3 col-md-3 pt-4 pt-md-5 ${styles.portrait_disable}`}>
+							<div className={`${styles.card_info_lg} mb-2 mb-md-4 p-1`}>
 								<p className="my-0">
-									<span className={`${styles.info_num} pt-2`}>P 07</span>
+									<span className={`${styles.info_num} pt-1`}>P 07</span>
 								</p>
 							</div>
 
-							<div className={`${styles.card_info_sm} mb-4`}>
+							<div className={`${styles.card_info_sm} mb-2 mb-md-4 p-1`}>
 								<p className="my-1">
 									<span>kart</span> <span className={`${styles.info_num} pt-1`}>#33</span>
 								</p>
 							</div>
 
-							<div className={`${styles.card_info_sm} mb-4`}>
+							<div className={`${styles.card_info_sm} mb-2 mb-md-4 p-1`}>
 								<p className="my-2">
 									<span className={styles.info_num}>00:09:652</span>
 								</p>
 							</div>
 
 							<div
-								className={`${styles.card_info_sm} d-flex align-items-center justify-content-center`}
-								style={{ minHeight: '130px' }}
+								className={`${styles.card_info_sm} d-flex align-items-center justify-content-center ${styles.card_info_sm__custom_size}`}
 							>
 								<p className="my-2 p-2">
 									<span className={`text-center ${styles.card_info_sm__name}`}>Paulo Constantino</span>
 								</p>
 							</div>
 						</div>
-						<div className="col-12 col-md-6 pt-3">
+						<div className={`col-6 col-md-6 pt-md-3 ${styles.portrait_col_12}`}>
 							<div className="d-flex mt-2">
 								<div className="flex-1 me-1">
 									<p className={`m-0 text-center ${styles.card_info_position__title}`}>Position</p>
-									<div className={`${styles.card_info_position} mb-4`}>
+									<div className={`${styles.card_info_position} mb-2 mb-md-4`}>
 										<p className="my-1">
 											<span className={`${styles.info_num} pt-1`}>P 08</span>
 										</p>
@@ -174,7 +173,7 @@ const LapTime = () => {
 								</div>
 								<div className="flex-1 ml-1">
 									<p className={`m-0 text-center ${styles.card_info_position__title}`}>Kart</p>
-									<div className={`${styles.card_info_position} mb-4`}>
+									<div className={`${styles.card_info_position} mb-2 mb-md-4`}>
 										<p className="my-1">
 											<span className={`${styles.info_num} pt-1`}>#12</span>
 										</p>
@@ -183,14 +182,14 @@ const LapTime = () => {
 							</div>
 							<div>
 								<p className={`m-0 text-center ${styles.card_info_position__title}`}>Current Lap</p>
-								<div className={`${styles.card_info_current} mb-2`}>
+								<div className={`${styles.card_info_current} mb-1 mb-md-2`}>
 									<p className="my-2">
 										<span className={styles.info_num}>00:50:916</span>
 									</p>
 								</div>
 							</div>
 							<div className="d-flex justify-content-center">
-								<div className={`${styles.card_info_lap} mb-4`}>
+								<div className={`${styles.card_info_lap} mb-2 mb-md-4`}>
 									<p className="my-0 py-1 px-2">
 										<span className="me-2">+</span>
 										<span className={`${styles.info_num} pt-2`}>00:01:843</span>
@@ -199,35 +198,34 @@ const LapTime = () => {
 							</div>
 							<div>
 								<p className={`m-0 text-center ${styles.card_info_fastest__title}`}>Fastest Lap</p>
-								<div className={`${styles.card_info_fastest} mb-4`}>
+								<div className={`${styles.card_info_fastest} mb-2 mb-md-4`}>
 									<p className="my-2">
 										<span className={styles.info_num}>00:49:652</span>
 									</p>
 								</div>
 							</div>
 						</div>
-						<div className="col-12 col-md-3 pt-5">
-							<div className={`${styles.card_info_lg} mb-4`}>
+						<div className={`col-3 col-md-3 pt-4 pt-md-5  ${styles.portrait_disable}`}>
+							<div className={`${styles.card_info_lg} mb-2 mb-md-4 p-1`}>
 								<p className="my-0">
-									<span className={`${styles.info_num} pt-2`}>P 09</span>
+									<span className={`${styles.info_num} pt-1`}>P 09</span>
 								</p>
 							</div>
 
-							<div className={`${styles.card_info_sm} mb-4`}>
+							<div className={`${styles.card_info_sm} mb-2 mb-md-4 p-1`}>
 								<p className="my-1">
 									<span>kart</span> <span className={`${styles.info_num} pt-1`}>#55</span>
 								</p>
 							</div>
 
-							<div className={`${styles.card_info_sm} mb-4`}>
+							<div className={`${styles.card_info_sm} mb-2 mb-md-4 p-1`}>
 								<p className="my-2">
 									<span className={styles.info_num}>00:11:234</span>
 								</p>
 							</div>
 
 							<div
-								className={`${styles.card_info_sm} d-flex align-items-center justify-content-center`}
-								style={{ minHeight: '130px' }}
+								className={`${styles.card_info_sm} d-flex align-items-center justify-content-center ${styles.card_info_sm__custom_size}`}
 							>
 								<p className="my-2 p-2">
 									<span className={`text-center ${styles.card_info_sm__name}`}>Gustavo Henrique Siqueira</span>
@@ -239,13 +237,13 @@ const LapTime = () => {
 						<div className="col-12">
 							<div className="d-flex justify-content-center">
 								<button
-									className={`btn btn-light p-4 me-4 ${styles.btn_options}`}
+									className={`btn btn-light p-3 p-md-4 me-4 ${styles.btn_options}`}
 									type="button"
 									data-bs-toggle="modal"
 									data-bs-target="#exampleModal"
 								></button>
-								<button className={`btn btn-light p-4 me-4 ${styles.btn_options}`}></button>
-								<button className={`btn btn-light p-4 ${styles.btn_options}`}></button>
+								<button className={`btn btn-light p-3 p-md-4 me-4 ${styles.btn_options}`}></button>
+								<button className={`btn btn-light p-3 p-md-4 ${styles.btn_options}`}></button>
 							</div>
 						</div>
 					</div>

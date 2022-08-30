@@ -6,14 +6,14 @@
 	background-position: bottom;
 	width: 100%;
 	height: 100vh;
-	/* padding: 50px; */
 }
 
 .info_num {
 	font-family: 'timer';
 }
 
-.card_info_lg, .card_info_sm {
+.card_info_lg,
+.card_info_sm {
 	border: 2px solid #fff;
 	background: #ecf00c;
 	background: linear-gradient(to right, #bdc008, #ecf00c, #bdc008);
@@ -22,7 +22,7 @@
 }
 
 .card_info_lg p,
-.card_info_sm p{
+.card_info_sm p {
 	display: flex;
 	justify-content: space-around;
 }
@@ -43,7 +43,12 @@
 	font-size: 1.5rem;
 }
 
-.card_info_position__title, .card_info_fastest__title {
+.card_info_sm__custom_size {
+	min-height: 130px;
+}
+
+.card_info_position__title,
+.card_info_fastest__title {
 	text-transform: uppercase;
 	color: #fff;
 	font-weight: bold;
@@ -59,7 +64,8 @@
 	line-height: 1;
 }
 
-.card_info_position p, .card_info_current p{
+.card_info_position p,
+.card_info_current p {
 	display: flex;
 	justify-content: center;
 }
@@ -132,18 +138,19 @@
 }
 
 .bg_modal_options {
-	background: linear-gradient( rgb(255 255 255 / 85%) 10%, rgb(255 255 255 / 100%)100%),url('../../assets/image/flag-race-bg.jpg');
+	background: linear-gradient(rgb(255 255 255 / 85%) 10%, rgb(255 255 255 / 100%) 100%),
+		url('../../assets/image/flag-race-bg.jpg');
 	background-size: cover;
 }
 
 .btn_custom_black {
-	background: linear-gradient(45deg, black 50%, rgba(0,0,0,.7) 50%, black) !important;
+	background: linear-gradient(45deg, black 50%, rgba(0, 0, 0, 0.7) 50%, black) !important;
 	border: none !important;
 	transition: 250ms ease;
 }
 
 .btn_custom_red {
-	background: linear-gradient(45deg, #EF4444 50%, rgb(255 41 41 / 70%) 50%, #EF4444) !important;
+	background: linear-gradient(45deg, #ef4444 50%, rgb(255 41 41 / 70%) 50%, #ef4444) !important;
 }
 
 /*
@@ -158,3 +165,97 @@
 	color: #fff;
 	font-size: 2rem;
 } */
+
+@media (max-width: 991.98px) and (orientation: landscape) {
+	.card_info_lg,
+	.card_info_sm,
+	.card_info_position,
+	.card_info_current,
+	.card_info_fastest {
+		border-radius: 10px;
+	}
+
+	.card_info_lg p span {
+		font-size: 2rem;
+	}
+
+	.card_info_sm p span {
+		font-size: 1.3rem;
+	}
+
+	.card_info_sm p span.card_info_sm__name {
+		font-size: 0.9rem;
+	}
+
+	.card_info_sm__custom_size {
+		min-height: 80px;
+	}
+
+	.card_info_position__title,
+	.card_info_fastest__title {
+		font-size: 0.7rem;
+	}
+
+	.card_info_position p span {
+		font-size: 2rem;
+	}
+
+	.card_info_current p span {
+		font-size: 2rem;
+	}
+
+	.card_info_lap p span {
+		font-size: 1.5rem;
+	}
+
+	.card_info_fastest p span {
+		font-size: 2rem;
+	}
+}
+
+@media (max-width: 991.98px) and (orientation: portrait) {
+	.portrait_container_alignment {
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	.card_info_lg,
+	.card_info_sm,
+	.card_info_position,
+	.card_info_current,
+	.card_info_fastest {
+		border-radius: 10px;
+	}
+
+	.portrait_disable {
+		display: none;
+	}
+
+	.portrait_col_12 {
+		flex: 0 0 auto;
+		width: 100%;
+	}
+
+	.card_info_position__title,
+	.card_info_fastest__title {
+		font-size: 0.7rem;
+	}
+
+	.card_info_position p span {
+		font-size: 2rem;
+	}
+
+	.card_info_current p span {
+		font-size: 2rem;
+	}
+
+	.card_info_lap p span {
+		font-size: 1.5rem;
+	}
+
+	.card_info_fastest p span {
+		font-size: 2rem;
+	}
+}
