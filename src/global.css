@@ -16,3 +16,8 @@
 .flex-2 {
 	flex: 2;
 }
+
+/* PRIME REACT CUSTOM */
+.p-dropdown-panel {
+	z-index: 9999 !important;
+}

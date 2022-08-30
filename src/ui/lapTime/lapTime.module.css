@@ -1,99 +1,138 @@
 .bg {
-	background: #000;
+	background: #c97800;
+	background: url('assets/image/race_bg.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: bottom;
 	width: 100%;
 	height: 100vh;
+	/* padding: 50px; */
 }
 
-.front_of {
-	color: #fff;
-	border: 3px solid #fff;
-	border-radius: 30px;
-}
-
-.front_of__big {
-	font-size: 7rem;
-	line-height: 1;
+.info_num {
 	font-family: 'timer';
 }
 
-.front_of__big_pos {
-	font-size: 4rem;
-	line-height: 1.5;
-	font-family: 'timer';
-}
-
-.position {
-	color: rgb(251, 255, 0);
-	border: 3px solid rgb(251, 255, 0);
-	border-radius: 30px;
-}
-
-.position__title {
-	color: rgb(251, 255, 0);
-	text-transform: uppercase;
-	font-family: 'timer';
-	letter-spacing: 3px;
-	font-size: 1.5rem;
-}
-
-.position__big {
-	font-size: 5rem;
-	line-height: 1;
-	font-family: 'timer';
-}
-
-.front_of__timer {
-	color: #ff0000;
-	border: 3px solid #ff0000;
+.card_info_lg, .card_info_sm {
+	border: 2px solid #fff;
+	background: #ecf00c;
+	background: linear-gradient(to right, #bdc008, #ecf00c, #bdc008);
 	border-radius: 20px;
+	line-height: 1;
 }
 
-.front_of__timer__big {
+.card_info_lg p,
+.card_info_sm p{
+	display: flex;
+	justify-content: space-around;
+}
+
+.card_info_lg p span {
+	font-size: 6rem;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+.card_info_sm p span {
+	font-size: 2rem;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+.card_info_sm p span.card_info_sm__name {
+	font-size: 1.5rem;
+}
+
+.card_info_position__title, .card_info_fastest__title {
+	text-transform: uppercase;
+	color: #fff;
+	font-weight: bold;
+	font-size: 1.2rem;
+	line-height: 1;
+}
+
+.card_info_position {
+	background: #fff;
+	background: linear-gradient(to right, #f0f0f0, #fff, #f0f0f0);
+	border: 2px solid #000;
+	border-radius: 20px;
+	line-height: 1;
+}
+
+.card_info_position p, .card_info_current p{
+	display: flex;
+	justify-content: center;
+}
+
+.card_info_position p span {
+	font-size: 6rem;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+.card_info_current {
+	background: #111270;
+	background: linear-gradient(to right, #111270, #0a0b46, #111270);
+	border: 2px solid #fff;
+	border-radius: 20px;
+	line-height: 1;
+}
+
+.card_info_current p span {
+	color: #fff;
 	font-size: 4rem;
-	line-height: 1;
-	font-family: 'timer';
-}
-
-.latest_lap__title {
-	color: #00aeff;
 	text-transform: uppercase;
-	font-family: 'timer';
-	letter-spacing: 3px;
-	font-size: 1.5rem;
+	font-weight: bold;
 }
 
-.latest_lap {
-	color: #00aeff;
-	border: 3px solid #00aeff;
-	border-radius: 30px;
-}
-
-.latest_lap__big {
-	font-size: 5rem;
+.card_info_lap {
+	background: #fff;
+	background: linear-gradient(to right, #f0f0f0, #fff, #f0f0f0);
+	border-radius: 10px;
 	line-height: 1;
-	font-family: 'timer';
 }
 
-.fastest_lap__title {
-	color: #73ff00;
+.card_info_lap p span {
+	color: #111270;
+	font-size: 3rem;
 	text-transform: uppercase;
-	font-family: 'timer';
-	letter-spacing: 3px;
-	font-size: 1.5rem;
+	font-weight: bold;
 }
 
-.fastest_lap {
-	color: #73ff00;
-	border: 3px solid #73ff00;
-	border-radius: 30px;
+.card_info_lap p {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-.fastest_lap__big {
-	font-size: 5rem;
+.card_info_fastest {
+	color: #fff;
+	background: #2c7932;
+	background: linear-gradient(to right, #2c7932, #154619, #2c7932);
+	border: 2px solid #fff;
+	border-radius: 20px;
 	line-height: 1;
-	font-family: 'timer';
 }
 
+.card_info_fastest p span {
+	font-size: 4rem;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+.card_info_fastest p {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.btn_options {
+	border-radius: 100%;
+	background: linear-gradient(120deg, #000000 50%, #ffffff 50%);
+}
+
+
+/*
 .footer {
 	position: absolute;
 	bottom: 0;
@@ -104,4 +143,4 @@
 	font-family: 'Faster One', cursive;
 	color: #fff;
 	font-size: 2rem;
-}
+} */
