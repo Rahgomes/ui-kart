@@ -43,8 +43,21 @@ const LapTime = () => {
 		};
 	}, []);
 
+	// useEffect(() => {
+	// 	getRace();
+	// }, [state.selectedKart]);
+
 	const sendPing = () => {
 		socket.emit('ping');
+	};
+
+	const getRace = async () => {
+		try {
+			const res = await API.getRace({ kart_number: state.selectedKart });
+			setState((prev) => ({ ...prev, race: res }));
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	const getComboPositions = () => {
@@ -52,8 +65,8 @@ const LapTime = () => {
 		setState((prev) => ({ ...prev, positions: res }));
 	};
 
-	const onPositionChange = (e) => {
-		setState((prev) => ({ ...prev, selectedPosition: e.value }));
+	const onSelectedKartChange = (e) => {
+		setState((prev) => ({ ...prev, selectedKart: e.value }));
 	};
 
 	const toggleFullScreen = () => {
@@ -106,9 +119,9 @@ const LapTime = () => {
 						</div>
 						<div className="modal-body">
 							<Dropdown
-								value={state.selectedPosition}
+								value={state.selectedKart}
 								options={state.positions}
-								onChange={onPositionChange}
+								onChange={onSelectedKartChange}
 								placeholder="Select your kart"
 								optionLabel="label"
 								optionValue="value"
@@ -117,7 +130,12 @@ const LapTime = () => {
 							/>
 						</div>
 						<div className="modal-footer">
-							<Button className={`p-button-sm ${styles.btn_custom_black} p-2 me-2`} disabled={!state.selectedPosition}>
+							<Button
+								className={`p-button-sm ${styles.btn_custom_black} p-2 me-2`}
+								disabled={!state.selectedKart}
+								onClick={() => state.selectedKart && getRace()}
+								data-bs-dismiss="modal"
+							>
 								<i className="pi pi-flag pe-2"></i>
 								<span className="">START</span>
 							</Button>
@@ -137,19 +155,26 @@ const LapTime = () => {
 						<div className={`col-3 col-md-3 pt-3 pt-md-5 ${styles.portrait_disable}`}>
 							<div className={`${styles.card_info_lg} mb-2 mb-md-3 p-1`}>
 								<p className="my-0">
-									<span className={`${styles.info_num} pt-1`}>P 07</span>
+									<span className={`${styles.info_num} pt-1`}>
+										P {state.race?.status_current_lap?.previous_racer?.position || '-'}
+									</span>
 								</p>
 							</div>
 
 							<div className={`${styles.card_info_sm} mb-2 mb-md-3 p-1`}>
 								<p className="my-1">
-									<span>kart</span> <span className={`${styles.info_num} pt-mb-1`}>#33</span>
+									<span>kart</span>{' '}
+									<span className={`${styles.info_num} pt-mb-1`}>
+										#{state.race?.status_current_lap?.previous_racer?.kart_number || '-'}
+									</span>
 								</p>
 							</div>
 
 							<div className={`${styles.card_info_sm} mb-2 mb-md-3 p-1`}>
 								<p className="my-2">
-									<span className={styles.info_num}>00:09:652</span>
+									<span className={styles.info_num}>
+										{state.race?.status_current_lap?.previous_racer?.lap_time || '00:00:000'}
+									</span>
 								</p>
 							</div>
 
@@ -157,7 +182,9 @@ const LapTime = () => {
 								className={`${styles.card_info_sm} d-flex align-items-center justify-content-center ${styles.card_info_sm__custom_size}`}
 							>
 								<p className="my-2 p-2">
-									<span className={`text-center ${styles.card_info_sm__name}`}>Paulo Constantino</span>
+									<span className={`text-center ${styles.card_info_sm__name}`}>
+										{state.race?.status_current_lap?.previous_racer?.racer_name || '-'}
+									</span>
 								</p>
 							</div>
 						</div>
@@ -167,7 +194,9 @@ const LapTime = () => {
 									<p className={`m-0 text-center ${styles.card_info_position__title}`}>Position</p>
 									<div className={`${styles.card_info_position} mb-2 mb-md-3`}>
 										<p className="my-1">
-											<span className={`${styles.info_num} pt-1`}>P 08</span>
+											<span className={`${styles.info_num} pt-1`}>
+												P {state.race?.status_current_lap?.current_racer?.position || '-'}
+											</span>
 										</p>
 									</div>
 								</div>
@@ -175,7 +204,9 @@ const LapTime = () => {
 									<p className={`m-0 text-center ${styles.card_info_position__title}`}>Kart</p>
 									<div className={`${styles.card_info_position} mb-2 mb-md-3`}>
 										<p className="my-1">
-											<span className={`${styles.info_num} pt-1`}>#12</span>
+											<span className={`${styles.info_num} pt-1`}>
+												#{state.race?.status_current_lap?.current_racer?.kart_number || '-'}
+											</span>
 										</p>
 									</div>
 								</div>
@@ -184,7 +215,7 @@ const LapTime = () => {
 								<p className={`m-0 text-center ${styles.card_info_position__title}`}>Current Lap</p>
 								<div className={`${styles.card_info_current} mb-1 mb-md-2`}>
 									<p className="my-2">
-										<span className={styles.info_num}>00:50:916</span>
+										<span className={styles.info_num}>{state.race?.status_current_lap?.current_racer?.lap_time || '00:00:000'}</span>
 									</p>
 								</div>
 							</div>
@@ -192,7 +223,7 @@ const LapTime = () => {
 								<div className={`${styles.card_info_lap} mb-2 mb-md-3`}>
 									<p className="my-0 py-1 px-2">
 										<span className="me-2">+</span>
-										<span className={`${styles.info_num} pt-2`}>00:01:843</span>
+										<span className={`${styles.info_num} pt-2`}>{state.race?.status_current_lap?.current_racer?.total_time || '00:00:000'}</span>
 									</p>
 								</div>
 							</div>
@@ -200,7 +231,7 @@ const LapTime = () => {
 								<p className={`m-0 text-center ${styles.card_info_fastest__title}`}>Fastest Lap</p>
 								<div className={`${styles.card_info_fastest} mb-2 mb-md-3`}>
 									<p className="my-2">
-										<span className={styles.info_num}>00:49:652</span>
+										<span className={styles.info_num}>{state.race?.status_current_lap?.current_racer?.best_lap?.lap_time || '00:00:000'}</span>
 									</p>
 								</div>
 							</div>
@@ -208,19 +239,26 @@ const LapTime = () => {
 						<div className={`col-3 col-md-3 pt-3 pt-md-5  ${styles.portrait_disable}`}>
 							<div className={`${styles.card_info_lg} mb-2 mb-md-3 p-1`}>
 								<p className="my-0">
-									<span className={`${styles.info_num} pt-1`}>P 09</span>
+									<span className={`${styles.info_num} pt-1`}>
+										P {state.race?.status_current_lap?.next_racer?.position || '-'}
+									</span>
 								</p>
 							</div>
 
 							<div className={`${styles.card_info_sm} mb-2 mb-md-3 p-1`}>
 								<p className="my-1">
-									<span>kart</span> <span className={`${styles.info_num} pt-mb-1`}>#55</span>
+									<span>kart</span>{' '}
+									<span className={`${styles.info_num} pt-mb-1`}>
+										#{state.race?.status_current_lap?.next_racer?.kart_number || '-'}
+									</span>
 								</p>
 							</div>
 
 							<div className={`${styles.card_info_sm} mb-2 mb-md-3 p-1`}>
 								<p className="my-2">
-									<span className={styles.info_num}>00:11:234</span>
+									<span className={styles.info_num}>
+										{state.race?.status_current_lap?.next_racer?.lap_time || '00:00:000'}
+									</span>
 								</p>
 							</div>
 
@@ -228,7 +266,9 @@ const LapTime = () => {
 								className={`${styles.card_info_sm} d-flex align-items-center justify-content-center ${styles.card_info_sm__custom_size}`}
 							>
 								<p className="my-2 p-2">
-									<span className={`text-center ${styles.card_info_sm__name}`}>Gustavo Henrique Siqueira</span>
+									<span className={`text-center ${styles.card_info_sm__name}`}>
+										{state.race?.status_current_lap?.next_racer?.racer_name || '-'}
+									</span>
 								</p>
 							</div>
 						</div>

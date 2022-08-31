@@ -1,4 +1,5 @@
 export const initialState = {
+	race: {},
 	positions: [],
-	selectedPosition: null,
+	selectedKart: null,
 };

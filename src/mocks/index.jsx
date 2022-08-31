@@ -70,3 +70,57 @@ export const positions = [
 	{ label: '#69', value: 69 },
 	{ label: '#70', value: 70 },
 ];
+
+export const race = {
+	racing: {
+		id: 83934,
+		title: 'BATERIAS 28/08/2022 - CORRIDA - (BATERIA 17:00)<br>RAUL BOESEL<br>CORRIDA (17:00)',
+		created_at: '2022-08-31T01:04:50.626Z',
+		updated_at: '2022-08-31T01:04:50.626Z',
+	},
+	status_current_lap: {
+		previous_racer: {
+			position: 1,
+			kart_number: 37,
+			racer_name: 'RAPHAEL SANTIAGO PEREIRA',
+			lap_number: 23,
+			lap_time: '00:00:50.974',
+			total_time: '00:19:49.614',
+			speed: '57.590',
+			created_at: '2022-08-31T01:08:54.125Z',
+			flag_current_racer: 0,
+		},
+		current_racer: {
+			position: 2,
+			kart_number: 33,
+			racer_name: 'DIEGO WALLACE NEIVA',
+			lap_number: 23,
+			lap_time: '00:01:01.66',
+			total_time: '00:19:53.754',
+			speed: '57.360',
+			created_at: '2022-08-31T01:08:54.125Z',
+			flag_current_racer: 1,
+			best_lap: {
+				id: 2,
+				kart_number: 33,
+				racer_name: 'DIEGO WALLACE NEIVA',
+				lap_number: 14,
+				lap_time: '00:00:50.403',
+				total_time: null,
+				speed: null,
+				created_at: null,
+			},
+		},
+		next_racer: {
+			position: 3,
+			kart_number: 5,
+			racer_name: 'IGOR FRANCO MARTINS',
+			lap_number: 23,
+			lap_time: '00:00:52.834',
+			total_time: '00:20:26.341',
+			speed: '55.850',
+			created_at: '2022-08-31T01:08:54.125Z',
+			flag_current_racer: 0,
+		},
+	},
+};
