@@ -13,48 +13,91 @@ import 'primereact/resources/primereact.css';
 // import 'primeflex/primeflex.css';
 import styles from './lapTime.module.css';
 
-const socket = io();
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return JSON.parse(c.substring(name.length, c.length));
+    }
+  }
+  return "";
+}
 
 const LapTime = () => {
-	const [state, setState] = useState(initialState);
+	const [state, setState] = useState(() => ({
+		...initialState,
+		race: getCookie('items') || initialState.race,
+		// race: JSON.parse(window.localStorage.getItem('items')) || initialState.race,
+	}));
 
-	const [isConnected, setIsConnected] = useState(socket.connected);
-	const [lastPong, setLastPong] = useState(null);
+	const [token, setToken] = useState(() => getCookie('token') || '');
+	// const [token, setToken] = useState(() => JSON.parse(window.localStorage.getItem('token')) || '');
+
+	const socket = io.connect(process.env.REACT_APP_API_BASE_URL, {
+		path: process.env.REACT_APP_SOCKET_CONTEXT,
+		transports: ['websocket'],
+		autoConnect: true,
+		forceNew: true,
+		auth: {
+			jwt: ''.concat(token).replace('bearer ', ''),
+		},
+	});
 
 	useEffect(() => {
-		getComboPositions();
-
 		socket.on('connect', () => {
-			setIsConnected(true);
+			console.log('Connected with socket');
 		});
 
 		socket.on('disconnect', () => {
-			setIsConnected(false);
-		});
-
-		socket.on('pong', () => {
-			setLastPong(new Date().toISOString());
+			setState(initialState);
+			console.log('Disconnected with socket');
 		});
 
 		return () => {
 			socket.off('connect');
 			socket.off('disconnect');
-			socket.off('pong');
 		};
 	}, []);
 
-	// useEffect(() => {
-	// 	getRace();
-	// }, [state.selectedKart]);
+	useEffect(() => {
+		socket.on('racing-update', (data) => {
+			setState((prev) => ({ ...prev, race: data }));
+			// console.log(data);
+		});
 
-	const sendPing = () => {
-		socket.emit('ping');
-	};
+		return () => {
+			socket.off('racing-update');
+		};
+	}, [token]);
+
+	useEffect(() => {
+		// window.localStorage.setItem('items', JSON.stringify(state.race));
+		let now = new Date();
+		now.setTime(now.getTime() + 21 * 3600 * 1000);
+		document.cookie = `items=${JSON.stringify(state.race)};expires=${now.toUTCString()}`
+	}, [state.race]);
 
 	const getRace = async () => {
 		try {
-			const res = await API.getRace({ kart_number: state.selectedKart });
-			setState((prev) => ({ ...prev, race: res }));
+			const bearer = await API.getToken({
+				username: process.env.REACT_APP_API_USER,
+				password: process.env.REACT_APP_API_PASS,
+				kart_number: state.selectedKart,
+			});
+
+			const race = await API.getRace({
+				bearer,
+				kart_number: state.selectedKart,
+			});
+
+			setToken(bearer);
+			setState((prev) => ({ ...prev, race }));
 		} catch (error) {
 			console.log(error);
 		}
@@ -215,15 +258,18 @@ const LapTime = () => {
 								<p className={`m-0 text-center ${styles.card_info_position__title}`}>Current Lap</p>
 								<div className={`${styles.card_info_current} mb-1 mb-md-2`}>
 									<p className="my-2">
-										<span className={styles.info_num}>{state.race?.status_current_lap?.current_racer?.lap_time || '00:00:000'}</span>
+										<span className={styles.info_num}>
+											{state.race?.status_current_lap?.current_racer?.lap_time || '00:00:000'}
+										</span>
 									</p>
 								</div>
 							</div>
 							<div className="d-flex justify-content-center">
 								<div className={`${styles.card_info_lap} mb-2 mb-md-3`}>
 									<p className="my-0 py-1 px-2">
-										<span className="me-2">+</span>
-										<span className={`${styles.info_num} pt-2`}>{state.race?.status_current_lap?.current_racer?.total_time || '00:00:000'}</span>
+										<span className={`${styles.info_num} pt-2`}>
+											{state.race?.status_current_lap?.current_racer?.distance_from_previous_racer || '00:00:000'}
+										</span>
 									</p>
 								</div>
 							</div>
@@ -231,7 +277,9 @@ const LapTime = () => {
 								<p className={`m-0 text-center ${styles.card_info_fastest__title}`}>Fastest Lap</p>
 								<div className={`${styles.card_info_fastest} mb-2 mb-md-3`}>
 									<p className="my-2">
-										<span className={styles.info_num}>{state.race?.status_current_lap?.current_racer?.best_lap?.lap_time || '00:00:000'}</span>
+										<span className={styles.info_num}>
+											{state.race?.status_current_lap?.current_racer?.best_lap?.lap_time || '00:00:000'}
+										</span>
 									</p>
 								</div>
 							</div>
@@ -283,6 +331,7 @@ const LapTime = () => {
 										className={`p-button-sm ${styles.btn_options}`}
 										data-bs-toggle="modal"
 										data-bs-target="#modalKartOptions"
+										onClick={() => getComboPositions()}
 									/>
 									<Button
 										label="Fullscreen"
