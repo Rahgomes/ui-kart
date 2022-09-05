@@ -6,6 +6,9 @@ import { Button } from 'primereact/button';
 
 import API from 'services/LapTime';
 import { initialState } from './mocks';
+import expireDate from 'utils/expireCookieRace';
+import getCookie from 'utils/getCookie';
+import toggleFullScreen from 'utils/toggleFullScreen';
 
 import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/lara-light-indigo/theme.css';
@@ -13,31 +16,13 @@ import 'primereact/resources/primereact.css';
 // import 'primeflex/primeflex.css';
 import styles from './lapTime.module.css';
 
-function getCookie(cname) {
-  let name = cname + "=";
-  let decodedCookie = decodeURIComponent(document.cookie);
-  let ca = decodedCookie.split(';');
-  for(let i = 0; i <ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return JSON.parse(c.substring(name.length, c.length));
-    }
-  }
-  return "";
-}
-
 const LapTime = () => {
 	const [state, setState] = useState(() => ({
 		...initialState,
 		race: getCookie('items') || initialState.race,
-		// race: JSON.parse(window.localStorage.getItem('items')) || initialState.race,
 	}));
 
 	const [token, setToken] = useState(() => getCookie('token') || '');
-	// const [token, setToken] = useState(() => JSON.parse(window.localStorage.getItem('token')) || '');
 
 	const socket = io.connect(process.env.REACT_APP_API_BASE_URL, {
 		path: process.env.REACT_APP_SOCKET_CONTEXT,
@@ -68,7 +53,6 @@ const LapTime = () => {
 	useEffect(() => {
 		socket.on('racing-update', (data) => {
 			setState((prev) => ({ ...prev, race: data }));
-			// console.log(data);
 		});
 
 		return () => {
@@ -77,10 +61,7 @@ const LapTime = () => {
 	}, [token]);
 
 	useEffect(() => {
-		// window.localStorage.setItem('items', JSON.stringify(state.race));
-		let now = new Date();
-		now.setTime(now.getTime() + 21 * 3600 * 1000);
-		document.cookie = `items=${JSON.stringify(state.race)};expires=${now.toUTCString()}`
+		document.cookie = `items=${JSON.stringify(state.race)};expires=${expireDate.toUTCString()}`;
 	}, [state.race]);
 
 	const getRace = async () => {
@@ -110,37 +91,6 @@ const LapTime = () => {
 
 	const onSelectedKartChange = (e) => {
 		setState((prev) => ({ ...prev, selectedKart: e.value }));
-	};
-
-	const toggleFullScreen = () => {
-		let elem = document.querySelector('body');
-
-		if (
-			(document.fullScreenElement !== undefined && document.fullScreenElement === null) ||
-			(document.msFullscreenElement !== undefined && document.msFullscreenElement === null) ||
-			(document.mozFullScreen !== undefined && !document.mozFullScreen) ||
-			(document.webkitIsFullScreen !== undefined && !document.webkitIsFullScreen)
-		) {
-			if (elem.requestFullScreen) {
-				elem.requestFullScreen();
-			} else if (elem.mozRequestFullScreen) {
-				elem.mozRequestFullScreen();
-			} else if (elem.webkitRequestFullScreen) {
-				elem.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
-			} else if (elem.msRequestFullscreen) {
-				elem.msRequestFullscreen();
-			}
-		} else {
-			if (document.cancelFullScreen) {
-				document.cancelFullScreen();
-			} else if (document.mozCancelFullScreen) {
-				document.mozCancelFullScreen();
-			} else if (document.webkitCancelFullScreen) {
-				document.webkitCancelFullScreen();
-			} else if (document.msExitFullscreen) {
-				document.msExitFullscreen();
-			}
-		}
 	};
 
 	return (
@@ -350,7 +300,6 @@ const LapTime = () => {
 						</div>
 					</div>
 				</div>
-				{/* <p className={styles.footer}>Kart Lap Time</p> */}
 			</div>
 		</>
 	);
